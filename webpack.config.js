@@ -23,6 +23,9 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/'
   },
+  externals: {
+    'AMap':'AMap',
+  },
   module: {
     rules: [{
       test: /\.(js)/,
@@ -31,9 +34,6 @@ module.exports = {
     }]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      'AMap': 'AMap'
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: '地图拾取器',
