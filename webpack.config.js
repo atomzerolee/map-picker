@@ -25,22 +25,9 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.(js|jsx)/,
+      test: /\.(js)/,
       use: 'babel-loader',
       include: resolve(__dirname, 'src')
-    }, {
-      test: /\.(css)/,
-      exclude: resolve(__dirname, 'node_modules'),
-      use: [{
-        loader: 'style-loader'
-      }, {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          camelCase: true,
-          localIdentName: '[name]_[local]_[hash:base64:5]',
-        }
-      }]
     }]
   },
   plugins: [
