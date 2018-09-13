@@ -2,7 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const entry = resolve(__dirname, 'src/index.js');
+const entry = resolve(__dirname, 'src/index.jsx');
 const output = resolve(__dirname, 'dist');
 
 module.exports = {
@@ -23,17 +23,38 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/'
   },
-  externals: {
-    'AMap':'AMap',
-  },
   module: {
     rules: [{
-      test: /\.(js)/,
+      test: /\.(js|jsx)/,
       use: 'babel-loader',
       include: resolve(__dirname, 'src')
+    }, {
+      test: /\.(css)/,
+      exclude: resolve(__dirname, 'node_modules'),
+      use: [{
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+          camelCase: true,
+          localIdentName: '[name]_[local]_[hash:base64:5]',
+        }
+      }]
+    }, {
+      test: /\.(css)/,
+      exclude: resolve(__dirname, 'src'),
+      use: [{
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader'
+      }]
     }]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      'React': 'react'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: '地图拾取器',
