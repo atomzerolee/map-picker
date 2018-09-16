@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Layout className={style.layout} >
         <Header>
-          
+
         </Header>
         <Content>
         </Content>
