@@ -1,8 +1,3 @@
-var district, map = new AMap.Map("container", {
-  resizeEnable: true,
-  center: [116.397428, 39.90923],//地图中心点
-  zoom: 10 //地图显示的缩放级别
-});
 addBeiJing();
 function addBeiJing() {
   //加载行政区划插件
