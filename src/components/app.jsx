@@ -9,7 +9,7 @@ class App extends Component {
   componentDidMount() {
     this.map = new AMap.Map("map-container", {
       resizeEnable: true,
-      center: [116.397428, 39.90923],//地图中心点
+      center: [117.190182, 39.125596],//地图中心点
       zoom: 10 //地图显示的缩放级别
     });
     AMap.service('AMap.DistrictSearch', this.onDistrictInit.bind(this));
@@ -23,11 +23,25 @@ class App extends Component {
     }
     this.district = new AMap.DistrictSearch(options);
     this.district.setLevel('district');
-    this.district.search('东丽区', this.onDistrictSearch.bind(this));
+    this.district.search('天津市', this.onDistrictSearch.bind(this));
   }
 
-  onDistrictSearch(result) {
-    console.log(result);
+  onDistrictSearch(status, res) {
+    const bounds = res && res.districtList[0].boundaries;
+    let polygons = [];
+    if(bounds) {
+      for (let i = 0, l = bounds.length; i < l; i++) {
+        const polygon = new AMap.Polygon({
+          map: this.map,
+          strokeWeight: 1,
+          path: bounds[i],
+          fillOpacity: 0.7,
+          fillColor: '#CCF3FF',
+          strokeColor: '#CC66CC'
+        });
+        polygons.push(polygon);
+      }
+    }
   }
 
   render() {
